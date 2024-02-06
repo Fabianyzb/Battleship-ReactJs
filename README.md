@@ -8,6 +8,8 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 
+#NOTA: Falta que la CPU ataque el tablero del humano y que uno pueda elegir donde posicionar sus barcos
+
 
 Battleship con React. Falta agregar CPU como segundo jugador.
 
