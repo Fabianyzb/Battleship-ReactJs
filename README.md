@@ -10,3 +10,8 @@ Currently, two official plugins are available:
 
 
 Battleship con React. Falta agregar CPU como segundo jugador.
+
+HOW TO START: 
+
+1. npm install
+2. npm run dev
