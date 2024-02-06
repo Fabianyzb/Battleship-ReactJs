@@ -1,9 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap");
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 32px;
+  color: #f3efef;
 }
 
 #game-container {
@@ -60,4 +73,10 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* Board Layout */
+.board-container {
+  display: inline-block;
+  margin-right: 20px; /* Ajusta el margen entre los tableros */
 }

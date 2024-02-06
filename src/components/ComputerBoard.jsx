@@ -1,5 +1,3 @@
-// src/components/Board.jsx
-
 import React, { useState } from 'react';
 import './Board.css';
 import Button from './Button';
@@ -7,14 +5,14 @@ import CoordinateLabels from './CoordinateLabels';
 import FireInput from './FireInput';
 import ShipToggle from './ShipToggle';
 
-function Board() {
+function ComputerBoard() {
     const [gameBoard, setGameBoard] = useState([
-        [1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+        [1, 0, 0, 1, 1, 1, 1, 1, 0, 0],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,6 +27,7 @@ function Board() {
 
     const handleFireClick = () => {
         setFireInputVisible(true);
+        handleComputerShot(); // Llama a la función para que la CPU realice un disparo
     };
 
     const handleFireSubmit = (coordinateInput) => {
@@ -49,6 +48,13 @@ function Board() {
         setFireInputVisible(false);
     };
 
+    const handleComputerShot = () => {
+        const randomRow = Math.floor(Math.random() * 10);
+        const randomCol = Math.floor(Math.random() * 10);
+        // Aquí puedes realizar la lógica para que la CPU dispare en la posición generada aleatoriamente
+        fireTorpedo(randomRow, randomCol);
+    };
+
     const fireTorpedo = (row, col) => {
         const newGameBoard = [...gameBoard];
         const cellValue = newGameBoard[row][col];
@@ -62,14 +68,9 @@ function Board() {
         setGameBoard(newGameBoard);
     };
 
-    const handleCPUShot = (row, col) => {
-        // Aquí puedes manejar el disparo de la CPU en tu tablero
-        fireTorpedo(row, col);
-    };
-
     return (
         <div id="game-container">
-            <h1 className="title">Human</h1>
+            <h1 className="title">CPU</h1>
             <CoordinateLabels />
             <div id="game-board" className="flex-container">
                 {gameBoard.map((row, rowIndex) => (
@@ -77,7 +78,7 @@ function Board() {
                         <div
                             key={`${rowIndex}-${colIndex}`}
                             className={`cell ${cell === 1 && shipsVisible ? 'ship' : ''} ${cell === 2 ? 'hit' : ''} ${cell === 3 ? 'miss' : ''}`}
-                            onClick={() => handleCPUShot(rowIndex, colIndex)} // Aquí llamamos a la función para manejar el disparo de la CPU
+                            onClick={handleFireClick} // Cambia el evento de clic aquí
                         >
                             {String.fromCharCode(65 + rowIndex) + (colIndex + 1)}
                         </div>
@@ -86,11 +87,11 @@ function Board() {
             </div>
             <div id="footer">
                 <ShipToggle onClick={toggleShipsVisibility} />
-                <Button onClick={handleFireClick}>Fire</Button>
+                <Button onClick={handleFireClick}>Fire</Button> {/* Puedes eliminar este botón si lo deseas */}
                 {fireInputVisible && <FireInput onSubmit={handleFireSubmit} />}
             </div>
         </div>
     );
 }
 
-export default Board;
+export default ComputerBoard;
