@@ -78,7 +78,7 @@ function ComputerBoard() {
                         <div
                             key={`${rowIndex}-${colIndex}`}
                             className={`cell ${cell === 1 && shipsVisible ? 'ship' : ''} ${cell === 2 ? 'hit' : ''} ${cell === 3 ? 'miss' : ''}`}
-                            onClick={handleFireClick} // Cambia el evento de clic aquí
+                            onClick={handleFireClick}
                         >
                             {String.fromCharCode(65 + rowIndex) + (colIndex + 1)}
                         </div>
@@ -87,7 +87,7 @@ function ComputerBoard() {
             </div>
             <div id="footer">
                 <ShipToggle onClick={toggleShipsVisibility} />
-                <Button onClick={handleFireClick}>Fire</Button> {/* Puedes eliminar este botón si lo deseas */}
+                <Button onClick={handleFireClick}>Fire</Button>
                 {fireInputVisible && <FireInput onSubmit={handleFireSubmit} />}
             </div>
         </div>

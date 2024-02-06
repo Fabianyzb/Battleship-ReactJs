@@ -63,7 +63,7 @@ function Board() {
     };
 
     const handleCPUShot = (row, col) => {
-        // Aquí puedes manejar el disparo de la CPU en tu tablero
+        // Tratando de que el disparo de la CPU sea en el tablero del Human
         fireTorpedo(row, col);
     };
 

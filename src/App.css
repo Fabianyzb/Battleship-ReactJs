@@ -78,5 +78,5 @@ body {
 /* Board Layout */
 .board-container {
   display: inline-block;
-  margin-right: 20px; /* Ajusta el margen entre los tableros */
+  margin-right: 20px;
 }
