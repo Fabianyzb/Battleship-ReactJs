@@ -1,17 +1,11 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-
 #NOTA: Falta que la CPU ataque el tablero del humano y que uno pueda elegir donde posicionar sus barcos
+Arreglar:
+1. CPU se ataca asi misma
+2. Barcos se fijen aleatoriamente 
+3. Evitar que la cpu ataque el mismo punto otra vez
 
 
-Battleship con React. Falta agregar CPU como segundo jugador.
+Battleship con React.
 
 HOW TO START: 
 
