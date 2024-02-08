@@ -1,8 +1,8 @@
 #NOTA: Falta que la CPU ataque el tablero del humano y que uno pueda elegir donde posicionar sus barcos
 Arreglar:
 1. CPU se ataca asi misma
-2. Barcos se fijen aleatoriamente 
-3. Evitar que la cpu ataque el mismo punto otra vez
+2. Evitar que la cpu ataque el mismo punto otra vez
+3. Barcos se fijen aleatoriamente 
 
 
 Battleship con React.
