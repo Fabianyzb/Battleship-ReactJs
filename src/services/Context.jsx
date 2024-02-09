@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 export const GameContext = createContext();
 
-// Función para inicializar el tablero con barcos en posiciones aleatorias
+// Funcion para inicializar el tablero con barcos en posiciones aleatorias
 const initializeBoardWithRandomShips = () => {
     const board = Array(10).fill().map(() => Array(10).fill(0));
 
@@ -61,13 +61,28 @@ export const GameProvider = ({ children }) => {
     const [computerBoard, setComputerBoard] = useState(initializeBoardWithRandomShips());
     const [cpuMoves, setCpuMoves] = useState(new Set()); // Inicializar un conjunto para almacenar los movimientos de la CPU
 
+    // Verificar si todos los barcos de un jugador han sido golpeados
+    const checkWin = (board) => {
+        for (let row of board) {
+            for (let cell of row) {
+                // Si hay algún barco (representado por el número 1) que no ha sido golpeado, el juego aún no ha terminado
+                if (cell === 1) {
+                    return false;
+                }
+            }
+        }
+        // Si todos los barcos han sido golpeados, el juego ha terminado
+        return true;
+    };
+
     const handleFireSubmit = (row, col) => {
-        // Copiar el tablero del oponente
+        //Ataque del Jugador al tablero de la CPU
+        // Copiar el tablero del oponente para no modificar directa% el estado de computerBoard
         const newBoard = [...computerBoard];
 
         // Comprobar si hay un barco en la celda objetivo
         if (newBoard[row][col] === 1) {
-            // Si hay un barco, marcar la celda como 'golpeado'
+            // Si hay un barco, marcar la celda como 'hit'
             newBoard[row][col] = 2;
         } else {
             // Si no hay un barco, marcar la celda como 'fallado'
@@ -76,11 +91,17 @@ export const GameProvider = ({ children }) => {
 
         // Actualizar el tablero del oponente
         setComputerBoard(newBoard);
+
+        //Check si la cpu gano
+        if (checkWin(playerBoard)) {
+            alert('¡La CPU ha ganado!');
+        }
     };
 
+
     const handleCPUClick = (row, col) => {
-        // Aquí puedes definir lo que sucede cuando se hace clic en una celda del tablero de la computadora
-        // Por ejemplo, podrías cambiar el estado de la celda en el tablero del jugador
+        // Aqui se define lo que sucede cuando se hace clic en una celda del tablero de la computadora
+        // Se cambia el estado de la celda del lado del jugador. Es como si la cpu estuviera jugando
         const newBoard = [...playerBoard];
 
         // Comprobar si hay un barco en la celda objetivo
@@ -94,6 +115,11 @@ export const GameProvider = ({ children }) => {
 
         // Actualizar el tablero del jugador
         setPlayerBoard(newBoard);
+
+        //Checkea si el juego ha terminado 
+        if (checkWin(computerBoard)) {
+            alert('¡El jugador humano ha ganado!');
+        }
     };
 
     const cpuMove = () => {
@@ -114,7 +140,7 @@ export const GameProvider = ({ children }) => {
     return (
         <GameContext.Provider value={{
             playerBoard, setPlayerBoard, computerBoard, setComputerBoard, handleFireSubmit, handleCPUClick,
-            cpuMove
+            cpuMove, cpuMoves, setCpuMoves
         }}>
             {children}
         </GameContext.Provider>

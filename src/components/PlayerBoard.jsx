@@ -4,21 +4,15 @@ import React, { useContext, useState } from 'react';
 import '../styles/GameBoard.css';
 import Button from './Button';
 import CoordinateLabels from './CoordinateLabels';
-import FireInput from './FireInput';
 import ShipToggle from './ShipToggle';
 import { GameContext } from '../services/Context'; // Importar el contexto
 
 function PlayerBoard() {
-    const { playerBoard, handleFireSubmit } = useContext(GameContext); // Obtener el estado del juego desde el contexto
+    const { playerBoard } = useContext(GameContext); // Obtener el estado del juego desde el contexto
     const [shipsVisible, setShipsVisible] = useState(false);
-    const [fireInputVisible, setFireInputVisible] = useState(false);
 
     const toggleShipsVisibility = () => {
         setShipsVisible(!shipsVisible);
-    };
-
-    const handleFireClick = () => {
-        setFireInputVisible(true);
     };
 
     return (
