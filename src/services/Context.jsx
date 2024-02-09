@@ -59,6 +59,7 @@ export const GameProvider = ({ children }) => {
     // Inicializar el tablero con barcos en posiciones aleatorias
     const [playerBoard, setPlayerBoard] = useState(initializeBoardWithRandomShips());
     const [computerBoard, setComputerBoard] = useState(initializeBoardWithRandomShips());
+    const [cpuMoves, setCpuMoves] = useState(new Set()); // Inicializar un conjunto para almacenar los movimientos de la CPU
 
     const handleFireSubmit = (row, col) => {
         // Copiar el tablero del oponente
@@ -95,8 +96,26 @@ export const GameProvider = ({ children }) => {
         setPlayerBoard(newBoard);
     };
 
+    const cpuMove = () => {
+        let row, col;
+        do {
+            // Generar coordenadas aleatorias para el tablero del jugador
+            row = Math.floor(Math.random() * 10);
+            col = Math.floor(Math.random() * 10);
+        } while (cpuMoves.has(`${row},${col}`)); // Repetir hasta que se encuentre un espacio que no haya sido atacado
+
+        // Añadir el nuevo movimiento al conjunto de movimientos de la CPU
+        setCpuMoves(prevMoves => new Set([...prevMoves, `${row},${col}`]));
+
+        // Llamar a handleCPUClick con las coordenadas aleatorias
+        handleCPUClick(row, col);
+    };
+
     return (
-        <GameContext.Provider value={{ playerBoard, setPlayerBoard, computerBoard, setComputerBoard, handleFireSubmit, handleCPUClick }}>
+        <GameContext.Provider value={{
+            playerBoard, setPlayerBoard, computerBoard, setComputerBoard, handleFireSubmit, handleCPUClick,
+            cpuMove
+        }}>
             {children}
         </GameContext.Provider>
     );
