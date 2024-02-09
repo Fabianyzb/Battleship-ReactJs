@@ -1,4 +1,4 @@
-# Juego de Batalla Naval
+# Juego Battleship
 
 Este proyecto es una implementación del clásico juego de Batalla Naval, donde el jugador humano juega contra la CPU.
 
