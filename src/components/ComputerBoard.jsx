@@ -2,7 +2,6 @@
 
 import React, { useContext, useState } from 'react';
 import '../styles/GameBoard.css';
-import Button from './Button';
 import CoordinateLabels from './CoordinateLabels';
 import ShipToggle from './ShipToggle';
 import { GameContext } from '../services/Context'; // Importar el contexto
