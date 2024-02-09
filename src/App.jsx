@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Board from './components/Board';
 import ComputerBoard from './components/ComputerBoard';
-import { GameProvider } from './services/Context';
+import { GameProvider } from './services/Context'; // Importar GameProvider entre llaves
 
 function App() {
   return (

@@ -1,23 +1,70 @@
 // Context.jsx
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-const GameContext = createContext();
+export const GameContext = createContext(); // Agrega 'export' aquí
 
-const GameProvider = ({ children }) => {
-    const [userBoard, setUserBoard] = useState(/* estado inicial del tablero del usuario */);
-    const [cpuBoard, setCpuBoard] = useState(/* estado inicial del tablero de la CPU */);
+// Función para inicializar el tablero con barcos en posiciones aleatorias
+const initializeBoardWithRandomShips = () => {
+    const board = Array(10).fill().map(() => Array(10).fill(0));
 
-    // Función para actualizar el tablero del usuario en función de un clic aleatorio de la CPU
-    const handleCPUClick = () => {
-        // Lógica para generar un clic aleatorio en el tablero del usuario
-    };
+    // Array de tamaños de los barcos
+    const shipSizes = [5, 4, 3, 3, 2];
+
+    // Colocar los barcos en el tablero
+    shipSizes.forEach(shipSize => {
+        let placed = false;
+        while (!placed) {
+            const orientation = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+            const row = Math.floor(Math.random() * 10);
+            const col = Math.floor(Math.random() * 10);
+
+            // Verificar si el barco cabe en esta posición
+            if (orientation === 'horizontal' && col + shipSize <= 10) {
+                let canPlace = true;
+                for (let i = col; i < col + shipSize; i++) {
+                    if (board[row][i] !== 0) {
+                        canPlace = false;
+                        break;
+                    }
+                }
+                if (canPlace) {
+                    for (let i = col; i < col + shipSize; i++) {
+                        board[row][i] = 1; // Marcar el lugar del barco en el tablero
+                    }
+                    placed = true;
+                }
+            } else if (orientation === 'vertical' && row + shipSize <= 10) {
+                let canPlace = true;
+                for (let i = row; i < row + shipSize; i++) {
+                    if (board[i][col] !== 0) {
+                        canPlace = false;
+                        break;
+                    }
+                }
+                if (canPlace) {
+                    for (let i = row; i < row + shipSize; i++) {
+                        board[i][col] = 1; // Marcar el lugar del barco en el tablero
+                    }
+                    placed = true;
+                }
+            }
+        }
+    });
+
+    return board;
+};
+
+export const GameProvider = ({ children }) => {
+    // Inicializar el tablero con barcos en posiciones aleatorias
+    const [playerBoard, setPlayerBoard] = useState(initializeBoardWithRandomShips());
+    const [computerBoard, setComputerBoard] = useState(initializeBoardWithRandomShips());
 
     return (
-        <GameContext.Provider value={{ userBoard, cpuBoard, handleCPUClick }}>
+        <GameContext.Provider value={{ playerBoard, setPlayerBoard, computerBoard, setComputerBoard }}>
             {children}
         </GameContext.Provider>
     );
 };
 
-export { GameProvider, GameContext };
+export const useGameContext = () => useContext(GameContext);

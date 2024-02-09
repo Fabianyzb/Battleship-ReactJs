@@ -80,3 +80,27 @@ body {
   display: inline-block;
   margin-right: 20px;
 }
+
+/* Estilos para pantallas con un ancho de 600px o menos */
+@media (max-width: 600px) {
+  #game-board {
+    width: 300px;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Estilos para pantallas con un ancho de 900px o menos */
+@media (max-width: 900px) {
+  #game-board {
+    width: 350px;
+  }
+
+  .cell {
+    width: 35px;
+    height: 35px;
+  }
+}

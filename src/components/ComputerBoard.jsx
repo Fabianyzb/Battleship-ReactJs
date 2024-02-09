@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
-import './Board.css';
+import React, { useContext, useState } from 'react';
+import '../styles/GameBoard.css';
 import Button from './Button';
 import CoordinateLabels from './CoordinateLabels';
 import FireInput from './FireInput';
 import ShipToggle from './ShipToggle';
+import { GameContext } from '../services/Context'; // Importar el contexto
 
 function ComputerBoard() {
-    const [gameBoard, setGameBoard] = useState([
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 1, 1, 1, 1, 1, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-    ]);
+    const { playerBoard, handleCPUClick } = useContext(GameContext); // Obtener el estado del juego desde el contexto
     const [shipsVisible, setShipsVisible] = useState(true);
     const [fireInputVisible, setFireInputVisible] = useState(false);
 
@@ -27,45 +17,10 @@ function ComputerBoard() {
 
     const handleFireClick = () => {
         setFireInputVisible(true);
-        handleComputerShot(); // Llama a la función para que la CPU realice un disparo
     };
 
-    const handleFireSubmit = (coordinateInput) => {
-        // Obtener las coordenadas de fila y columna
-        const rowChar = coordinateInput.charAt(0);
-        const colNum = parseInt(coordinateInput.substring(1)) - 1; // Restar 1 para obtener el índice base cero
-
-        // Convertir la letra de fila a un índice numérico (A=0, B=1, etc.)
-        const row = rowChar.charCodeAt(0) - "A".charCodeAt(0);
-
-        // Validar las coordenadas
-        if (row >= 0 && row < 10 && colNum >= 0 && colNum < 10) {
-            fireTorpedo(row, colNum);
-        } else {
-            console.log("Coordenadas inválidas");
-        }
-
-        setFireInputVisible(false);
-    };
-
-    const handleComputerShot = () => {
-        const randomRow = Math.floor(Math.random() * 10);
-        const randomCol = Math.floor(Math.random() * 10);
-        // Aquí puedes realizar la lógica para que la CPU dispare en la posición generada aleatoriamente
-        fireTorpedo(randomRow, randomCol);
-    };
-
-    const fireTorpedo = (row, col) => {
-        const newGameBoard = [...gameBoard];
-        const cellValue = newGameBoard[row][col];
-
-        if (cellValue === 1) {
-            newGameBoard[row][col] = 2; // Kaboom!
-        } else if (cellValue === 0) {
-            newGameBoard[row][col] = 3; // Missed!
-        }
-
-        setGameBoard(newGameBoard);
+    const handleCellClick = (rowIndex, colIndex) => {
+        handleCPUClick(rowIndex, colIndex); // Llamar a handleCPUClick en lugar de handleFireSubmit
     };
 
     return (
@@ -73,12 +28,12 @@ function ComputerBoard() {
             <h1 className="title">CPU</h1>
             <CoordinateLabels />
             <div id="game-board" className="flex-container">
-                {gameBoard.map((row, rowIndex) => (
+                {playerBoard.map((row, rowIndex) => (
                     row.map((cell, colIndex) => (
                         <div
                             key={`${rowIndex}-${colIndex}`}
                             className={`cell ${cell === 1 && shipsVisible ? 'ship' : ''} ${cell === 2 ? 'hit' : ''} ${cell === 3 ? 'miss' : ''}`}
-                            onClick={handleFireClick}
+                            onClick={() => handleCellClick(rowIndex, colIndex)} // Manejar clic en la celda
                         >
                             {String.fromCharCode(65 + rowIndex) + (colIndex + 1)}
                         </div>
