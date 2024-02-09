@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-export const GameContext = createContext(); // Agrega 'export' aquí
+export const GameContext = createContext();
 
 // Función para inicializar el tablero con barcos en posiciones aleatorias
 const initializeBoardWithRandomShips = () => {
@@ -60,8 +60,43 @@ export const GameProvider = ({ children }) => {
     const [playerBoard, setPlayerBoard] = useState(initializeBoardWithRandomShips());
     const [computerBoard, setComputerBoard] = useState(initializeBoardWithRandomShips());
 
+    const handleFireSubmit = (row, col) => {
+        // Copiar el tablero del oponente
+        const newBoard = [...computerBoard];
+
+        // Comprobar si hay un barco en la celda objetivo
+        if (newBoard[row][col] === 1) {
+            // Si hay un barco, marcar la celda como 'golpeado'
+            newBoard[row][col] = 2;
+        } else {
+            // Si no hay un barco, marcar la celda como 'fallado'
+            newBoard[row][col] = 3;
+        }
+
+        // Actualizar el tablero del oponente
+        setComputerBoard(newBoard);
+    };
+
+    const handleCPUClick = (row, col) => {
+        // Aquí puedes definir lo que sucede cuando se hace clic en una celda del tablero de la computadora
+        // Por ejemplo, podrías cambiar el estado de la celda en el tablero del jugador
+        const newBoard = [...playerBoard];
+
+        // Comprobar si hay un barco en la celda objetivo
+        if (newBoard[row][col] === 1) {
+            // Si hay un barco, marcar la celda como 'golpeado'
+            newBoard[row][col] = 2;
+        } else {
+            // Si no hay un barco, marcar la celda como 'fallado'
+            newBoard[row][col] = 3;
+        }
+
+        // Actualizar el tablero del jugador
+        setPlayerBoard(newBoard);
+    };
+
     return (
-        <GameContext.Provider value={{ playerBoard, setPlayerBoard, computerBoard, setComputerBoard }}>
+        <GameContext.Provider value={{ playerBoard, setPlayerBoard, computerBoard, setComputerBoard, handleFireSubmit, handleCPUClick }}>
             {children}
         </GameContext.Provider>
     );

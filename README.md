@@ -2,7 +2,7 @@
 Arreglar:
 1. CPU se ataca asi misma
 2. Evitar que la cpu ataque el mismo punto otra vez
-3. Barcos se fijen aleatoriamente 
+3. Barcos se fijen aleatoriamente [check]
 
 
 Battleship con React + Vite

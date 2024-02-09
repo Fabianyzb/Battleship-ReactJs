@@ -6,7 +6,7 @@ import FireInput from './FireInput';
 import ShipToggle from './ShipToggle';
 import { GameContext } from '../services/Context'; // Importar el contexto
 
-function Board() {
+function PlayerBoard() {
     const { computerBoard, handleFireSubmit } = useContext(GameContext); // Obtener el estado del juego desde el contexto
     const [shipsVisible, setShipsVisible] = useState(true);
     const [fireInputVisible, setFireInputVisible] = useState(false);
@@ -44,4 +44,4 @@ function Board() {
     );
 }
 
-export default Board;
+export default PlayerBoard;
