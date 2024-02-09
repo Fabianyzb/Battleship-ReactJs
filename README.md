@@ -5,7 +5,7 @@ Arreglar:
 3. Barcos se fijen aleatoriamente 
 
 
-Battleship con React.
+Battleship con React + Vite
 
 HOW TO START: 
 
