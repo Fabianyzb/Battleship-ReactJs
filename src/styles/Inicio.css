@@ -1,0 +1,13 @@
+.inicio {
+  background-image: url("/battleship.jpg"); /* Cambia esto a la ruta de tu imagen */
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-button {
+  font-size: 2em;
+  padding: 10px 20px;
+}
