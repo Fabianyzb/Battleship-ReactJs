@@ -13,7 +13,6 @@ function App() {
         <Route path="/" element={<Inicio />} /> {/* Ruta para la página de inicio */}
         <Route path="/juego" element={
           <div className="App">
-            <h1 className='title'>BATTLESHIP</h1>
             <GameProvider>
               <div className="board-container">
                 <PlayerBoard />
