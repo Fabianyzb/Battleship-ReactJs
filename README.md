@@ -27,17 +27,6 @@ El juego se desarrolla en dos tableros de 10x10. Cada jugador tiene un conjunto 
 3. Después de tu turno, la CPU realizará un movimiento.
 4. El juego continúa hasta que todos los barcos de un jugador han sido hundidos.
 
-## Cómo ejecutar el proyecto
-
-1. Clona el repositorio.
-2. Instala las dependencias con `npm install`.
-3. Ejecuta el proyecto con `npm start`.
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue o realiza un pull request si deseas contribuir al proyecto.
-
-
 
 
 HOW TO START: 
